@@ -16,6 +16,7 @@ const verifyToken = (req,res,next)=>{
         )
 
         req.user=decode;
+        console.log(decode);
         next()
     }catch(error){
         res.status(401).json({
