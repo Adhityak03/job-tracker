@@ -8,10 +8,7 @@ router.post("/register",register)
 router.post("/login",login)
 
 router.get("/me",verifyToken,(req,res)=>{
-    res.status(200).json({
-        message:" Protected router working ",
-        user:req.user
-    })
+    res.status(200).json(req.user)
 })
 
 module.exports=router
