@@ -10,7 +10,7 @@ const createJob = async(req,res,next)=>{
                 message:"Title and company name is required"
             })
         }
-        const validStatus=["Applied", "Interview", "Offer", "Rejected"]
+        const validStatus=["Applied","Interview","Offer","Rejected"]
         if(status&&!validStatus.includes(status)){
             res.status(400).json({
                 message:"invalid job status"
@@ -52,7 +52,7 @@ const updateJob=async(req,res,next)=>{
             req.body,
             {new:true}
         )
-
+                            
         res.status(200).json(updatedJob)
     }catch(error){
         res.status(500).json({
