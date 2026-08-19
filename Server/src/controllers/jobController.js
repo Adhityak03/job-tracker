@@ -3,7 +3,7 @@ const Job=require("../models/job")
 
 const createJob = async(req,res,next)=>{
     try {
-        const{title,company,status,appliedData,notes}=req.body
+        const{title,company,position,status,appliedDate,notes}=req.body
         
         if(!company&&!title){
             return res.status(400).json({
@@ -19,8 +19,9 @@ const createJob = async(req,res,next)=>{
         const job=await Job.create({
             title,
             company,
+            position,
             status,
-            appliedData,
+            appliedDate,
             notes,
             userId:req.user.id
         })
@@ -52,7 +53,7 @@ const updateJob=async(req,res,next)=>{
             req.body,
             {new:true}
         )
-                            
+
         res.status(200).json(updatedJob)
     }catch(error){
         res.status(500).json({
