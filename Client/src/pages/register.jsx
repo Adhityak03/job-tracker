@@ -1,7 +1,7 @@
 import { RiHandbagFill } from "react-icons/ri";
 import { useState } from "react";
 import { useDispatch } from "react-redux";
-import { registerUser } from "../features/auth/authSlice";
+import { registerUser } from "../features/auth/authslice";
 import { useNavigate } from "react-router-dom";
 
 const Register = () => {
