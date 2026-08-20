@@ -1,7 +1,18 @@
 import React from "react";
 import { Search, Bell } from "lucide-react";
+import { useDispatch } from "react-redux";
+import { useNavigate } from "react-router-dom";
+import { logout } from "../features/auth/authslice";
 
 const TopBar = ({ title, onToggleSidebar }) => {
+  const dispatch = useDispatch();
+  const navigate = useNavigate();
+
+  const handleLogout = () => {
+    dispatch(logout());
+    navigate("/login");
+  };
+
   return (
     <header className="flex items-center justify-between px-6 py-4 bg-transparent">
       <div className="flex items-center gap-3">
@@ -20,6 +31,13 @@ const TopBar = ({ title, onToggleSidebar }) => {
           </button>
           <span className="absolute top-0 right-0 w-2 h-2 bg-red-500 rounded-full" />
         </div>
+
+        <button
+          onClick={handleLogout}
+          className="bg-red-500 hover:bg-red-600 text-white px-3 py-2 rounded-lg text-sm font-medium"
+        >
+          Logout
+        </button>
 
         <div className="w-10 h-10 rounded-full bg-indigo-600 text-white flex items-center justify-center font-bold">AJ</div>
       </div>

@@ -2,7 +2,7 @@ import { RiHandbagFill } from "react-icons/ri";
 import { useState } from "react";
 import { useDispatch } from "react-redux";
 import { loginUser } from "../features/auth/authslice";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, Link } from "react-router-dom";
 
 const Login = () => {
   const [formData, setFormData] = useState({
@@ -84,6 +84,13 @@ const Login = () => {
               Login
             </button>
           </div>
+
+          <p className="text-center text-sm text-gray-600">
+            Don&apos;t have an account?{" "}
+            <Link to="/register" className="text-blue-600 font-medium hover:underline">
+              Register
+            </Link>
+          </p>
         </form>
       </div>
     </div>
