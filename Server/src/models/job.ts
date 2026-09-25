@@ -1,6 +1,14 @@
-const mongoose = require("mongoose");
-
-const jobSchema = new mongoose.Schema(
+import mongoose from "mongoose";
+interface Job {
+  title: string;
+  company: string;
+  position: string;
+  status: "Applied" | "Interview" | "Offer" | "Rejected";
+  appliedDate: Date;
+  notes?: string;
+  userId: mongoose.Types.ObjectId;
+}
+const jobSchema = new mongoose.Schema<Job>(
   {
     title: {
       type: String,
@@ -35,4 +43,5 @@ const jobSchema = new mongoose.Schema(
   { timestamps: true }
 );
 
-module.exports = mongoose.model("Job", jobSchema);
+const Job = mongoose.model<Job>("Job", jobSchema);
+export default Job;

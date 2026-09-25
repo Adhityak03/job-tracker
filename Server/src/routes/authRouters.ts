@@ -1,6 +1,6 @@
-const express=require("express")
-const {register,login}=require("../controllers/authController")
-const verifyToken=require("../middleware/middleware")
+import express from "express";
+import { register, login } from "../controllers/authController";
+import  verifyToken  from "../middleware/middleware";
 
 const router=express.Router()
 
@@ -11,4 +11,4 @@ router.get("/me",verifyToken,(req,res)=>{
     res.status(200).json(req.user)
 })
 
-module.exports=router
+export default router

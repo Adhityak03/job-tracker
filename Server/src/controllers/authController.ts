@@ -1,10 +1,12 @@
-const { model } = require("mongoose")
 
-const User = require("../models/User")
-const bcrypt = require("bcryptjs")
-const jwt = require("jsonwebtoken")
+import User from "../models/User";
+import bcrypt from "bcryptjs";
+import jwt from "jsonwebtoken";
+import {NextFunction, Request, Response} from "express";
 
-const register=async(req,res)=>{
+
+
+const register=async(req: Request, res: Response,next:NextFunction)=>{
     try{
         const{name,email,password}=req.body
         
@@ -24,10 +26,17 @@ const register=async(req,res)=>{
             email,
             password:hashedPassword
         })
+        const JWT_SECRET=process.env.JWT_SECRET;
+        if(!JWT_SECRET){
+            return res.status(500).json({
+                message:"JWT_SECRET is not defined in the environment variables."
+            })
+        }
 
+        
         const token= jwt.sign(
             {id:user._id},
-            process.env.JWT_SECRET,
+            JWT_SECRET,
             {expiresIn:"7d"}
         )
 
@@ -35,17 +44,16 @@ const register=async(req,res)=>{
             message:"User sign in done",token
         })
     }
-    catch(error){
-        res.status(500).json({
-            message:error.message
-        })
+    catch (error) {
+    next(error)
+}
 
     }
 
     
-}
 
-const login= async(req,res)=>{
+
+const login= async(req: Request, res: Response, next: NextFunction)=>{
 
     try{
          const{email,password}=req.body
@@ -65,10 +73,17 @@ const login= async(req,res)=>{
                 message:"Invalid credentials"
             })
         }
+const JWT_SECRET=process.env.JWT_SECRET;
+        if(!JWT_SECRET){
+            return res.status(500).json({
+                message:"JWT_SECRET is not defined in the environment variables."
+            })
+        }
+
 
         const token = await jwt.sign(
             {id:user._id},
-            process.env.JWT_SECRET,
+            JWT_SECRET,
             {expiresIn:"7d"}
         )
 
@@ -77,12 +92,11 @@ const login= async(req,res)=>{
             token
         })
     }
-    catch(error){
-        res.status(500).json({
-            message:error.message
-        })
-    }
+    catch (error) {
+    next(error)
+}
    
 }
 
-module.exports={register,login}
+export {register,login}
+
